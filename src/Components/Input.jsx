@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import { purple,lightBlue,indigo,deepPurple} from '@mui/material/colors';
+import SendIcon from '@mui/icons-material/Send';
+import DeleteIcon from '@mui/icons-material/Delete';
 import theme from './Theme';
 const purpleColor = purple[200];
-
 
 const Input = ({ items, setItems }) => {
     const [inputVal, setInput] = useState('');
@@ -68,19 +69,32 @@ const Input = ({ items, setItems }) => {
                 <Button size="large" type='submit' variant='outlined' color='success'>Add Expense</Button>
                 </div>
             </form>
+        
             <div className="item-list-container">
                 <p>EXPENSE LIST:</p>
+                <table>
+                <tr>
+                    <th>Expense no:</th>
+                    <th> Description:</th>
+                    <th>Expense:</th>
+                    <th>Date:</th>
+                    <th>REMOVE</th>
+                </tr>
                 {items.length > 0 &&
                 items.map((item, index) => (
-                    <div className="item">
-                        <div className='itemdesc' key={index}>
-                            <p>expense no.:{item.item}; Description:{item.desc}; Expense:{item.number}; Date:{item.date}</p>
-                        </div>
-                        <div className='button'>
-                            <button onClick={() => handleDelete(item)}>X</button>
-                        </div>
-                    </div>
+                    <tr>
+                        <td>{!item.item?'':item.item}</td>
+                        <td>{!item.desc?'':item.desc}</td>
+                        <td>{!item.number?'':item.number}</td>
+                        <td>{item.date?item.date:''}</td>
+                        <td className='buttonpart'>
+                        <Button variant="outlined" startIcon={<DeleteIcon />} onClick={() => handleDelete(item)}>
+                            Delete
+                        </Button>
+                        </td>
+                    </tr>
                 ))}
+                </table>
             </div>
         </div>
     );
